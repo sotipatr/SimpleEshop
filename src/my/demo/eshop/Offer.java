@@ -1,15 +1,15 @@
 package my.demo.eshop;
 
-import java.text.DateFormat;
+import org.joda.time.DateTime;
 
 public class Offer {
 	
 	private int offerId;
 	private String description;
-	private float price;
-	private DateFormat expirationDate;
+	private String price;
+	private DateTime expirationDate;
 	
-	public Offer(int offerId, String description, float price, DateFormat expirationDate) {
+	public Offer(int offerId, String description, String price, DateTime expirationDate) {
 		super();
 		this.offerId = offerId;
 		this.description = description;
@@ -33,19 +33,19 @@ public class Offer {
 		this.description = description;
 	}
 
-	public float getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public DateFormat getExpirationDate() {
+	public DateTime getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(DateFormat expirationDate) {
+	public void setExpirationDate(DateTime expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	
