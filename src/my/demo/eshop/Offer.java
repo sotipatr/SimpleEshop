@@ -5,16 +5,25 @@ import org.joda.time.DateTime;
 public class Offer {
 	
 	private int offerId;
+	private String name;
 	private String description;
 	private String price;
 	private DateTime expirationDate;
 	
-	public Offer(int offerId, String description, String price, DateTime expirationDate) {
+	public Offer(int offerId, String name, String description, String price, DateTime expirationDate) {
 		super();
 		this.offerId = offerId;
 		this.description = description;
 		this.price = price;
 		this.expirationDate = expirationDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getOfferId() {
