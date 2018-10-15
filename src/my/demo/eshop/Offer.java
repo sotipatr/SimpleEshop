@@ -12,6 +12,7 @@ public class Offer {
 	
 	public Offer(int offerId, String name, String description, String price, DateTime expirationDate) {
 		super();
+		this.name = name;
 		this.offerId = offerId;
 		this.description = description;
 		this.price = price;
