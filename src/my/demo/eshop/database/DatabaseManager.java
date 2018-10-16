@@ -35,7 +35,7 @@ public class DatabaseManager {
 				String expirationDate = rs.getString("expirationDate");
 				
 				DateTime dt = formatter.parseDateTime(expirationDate);
-				Offer offer = new Offer(offerId, name, description, price, dt); 
+				Offer offer = new Offer(offerId, name, description, price, dt, "active"); 
 				offers.add(offer);
 			}
 
@@ -55,13 +55,14 @@ public void setOffer(Connection conn, Offer offer) throws SQLException {
 		
 		PreparedStatement ps = null;
 		try {
-			String query = "INSERT INTO OFFERS (name, description, price, expirationDate) VALUES (?,?,?,?)";
+			String query = "INSERT INTO OFFERS (name, description, price, expirationDate, status) VALUES (?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 
 			ps.setString(1, offer.getName());
 			ps.setString(2, offer.getDescription());
 			ps.setString(3, offer.getPrice());
 			ps.setTimestamp(4, new Timestamp(offer.getExpirationDate().getMillis()));
+			ps.setString(5, offer.getStatus());
 
 			ps.executeUpdate();
 
