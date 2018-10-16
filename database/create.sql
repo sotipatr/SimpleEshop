@@ -12,6 +12,7 @@ CREATE TABLE OFFERS
     description varchar(255),
     price varchar(50),
     expirationDate DATETIME,
+    status varchar(50),
     PRIMARY KEY(offerid)
 );
 
