@@ -59,9 +59,7 @@ public void setOffer(Connection conn, Offer offer) throws SQLException {
 			ps = conn.prepareStatement(query);
 
 			ps.setString(1, offer.getName());
-			//System.out.println(offer.getName());
 			ps.setString(2, offer.getDescription());
-			//System.out.println(offer.getDescription());
 			ps.setString(3, offer.getPrice());
 			ps.setTimestamp(4, new Timestamp(offer.getExpirationDate().getMillis()));
 
