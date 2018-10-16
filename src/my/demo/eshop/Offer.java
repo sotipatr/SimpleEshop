@@ -9,14 +9,24 @@ public class Offer {
 	private String description;
 	private String price;
 	private DateTime expirationDate;
+	private String status;
 	
-	public Offer(int offerId, String name, String description, String price, DateTime expirationDate) {
+	public Offer(int offerId, String name, String description, String price, DateTime expirationDate, String status) {
 		super();
 		this.name = name;
 		this.offerId = offerId;
 		this.description = description;
 		this.price = price;
 		this.expirationDate = expirationDate;
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getName() {
