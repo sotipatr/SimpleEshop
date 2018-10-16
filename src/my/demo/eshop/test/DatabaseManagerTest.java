@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -23,7 +24,7 @@ public class DatabaseManagerTest  extends TestCase {
 	public void testGetOffer(){
 		ArrayList<Offer> expectedOffers = new ArrayList<Offer>();
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S");
-		expectedOffers.add(new Offer(1, "offer1", "mplampla", "150", formatter.parseDateTime("2018-10-14 19:07:51.0")));
+		expectedOffers.add(new Offer(1, "offer1", "mplampla", "150", formatter.parseDateTime("2018-10-16 19:22:34.0"), "active"));
 		
 		Connection conn = null;
 		try {
@@ -37,6 +38,7 @@ public class DatabaseManagerTest  extends TestCase {
 			assertEquals(actualOffers.get(0).getName(), expectedOffers.get(0).getName());
 			assertEquals(actualOffers.get(0).getPrice(), expectedOffers.get(0).getPrice());
 			assertEquals(actualOffers.get(0).getExpirationDate().toString(), expectedOffers.get(0).getExpirationDate().toString());
+			assertEquals(actualOffers.get(0).getStatus(), expectedOffers.get(0).getStatus());
 		}
 		catch (SQLException e)
 		{
@@ -59,18 +61,18 @@ public class DatabaseManagerTest  extends TestCase {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306/demoeshop","root","sotiria");
-			Offer offer = new Offer(2, "offer2", "simple description", "200", formatter.parseDateTime("2018-10-15 22:21:11.0"));
+			Offer offer = new Offer(2, "offer2", "simple description", "200", formatter.parseDateTime("2018-10-15 22:21:11.0"), "active");
 			databaseManager.setOffer(conn, offer);
 			
 			ArrayList<Offer> actualOffers = databaseManager.getOffers(conn);
 			
 			//for the sake of simplicity I check only one object in the ArrayList
-			assertEquals(actualOffers.get(9).getOfferId(), 10);
-			assertEquals(actualOffers.get(9).getDescription(), "simple description");
-			assertEquals(actualOffers.get(9).getName(), "offer2");
-			assertEquals(actualOffers.get(9).getPrice(), "200");
-			
-			assertEquals(actualOffers.get(9).getExpirationDate().toString(), "2018-10-15T22:21:11.000+01:00");
+			assertEquals(actualOffers.get(1).getOfferId(), 2);
+			assertEquals(actualOffers.get(1).getDescription(), "simple description");
+			assertEquals(actualOffers.get(1).getName(), "offer2");
+			assertEquals(actualOffers.get(1).getPrice(), "200");
+			assertEquals(actualOffers.get(1).getStatus(), "active");
+			assertEquals(actualOffers.get(1).getExpirationDate().toString(), "2018-10-15T22:21:11.000+01:00");
 		}
 		catch (SQLException e)
 		{
