@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -55,14 +54,12 @@ public class DatabaseManagerTest  extends TestCase {
 	
 	public void testSetOffer(){
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S");
-		DateTimeFormatter dbformatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
 		
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306/demoeshop","root","sotiria");
 			Offer offer = new Offer(2, "offer2", "simple description", "200", formatter.parseDateTime("2018-10-15 22:21:11.0"));
-			//System.out.println("test "+offer.getName());
 			databaseManager.setOffer(conn, offer);
 			
 			ArrayList<Offer> actualOffers = databaseManager.getOffers(conn);
@@ -72,7 +69,6 @@ public class DatabaseManagerTest  extends TestCase {
 			assertEquals(actualOffers.get(9).getDescription(), "simple description");
 			assertEquals(actualOffers.get(9).getName(), "offer2");
 			assertEquals(actualOffers.get(9).getPrice(), "200");
-			//String s = ;
 			
 			assertEquals(actualOffers.get(9).getExpirationDate().toString(), "2018-10-15T22:21:11.000+01:00");
 		}
