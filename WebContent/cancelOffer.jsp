@@ -24,10 +24,9 @@
                 </div>
             </div>
             <form class="form-horizontal" role="form" method="post" action="${pageContext.request.contextPath}/CancelOffer">
-            <table class="table table-bordered" border="1">
+            <table class="table table-bordered" border="1"  align="center">
             	<thead>
             		<tr>
-            			<th>Selection</th>
       					<th>Offer ID</th>
       					<th>Offer name</th>
       					<th>Description</th>
@@ -43,23 +42,25 @@
                 	
                 %>
                     <tr>
-                    	<td width="10%"  align="center">
-                            <input type="radio" checked="checked" name="offerId" value="<%out.print(curr.getOfferId());%>">
-                        </td>
-                        <td width="25%"  align="center">
-                            <label><%out.print(curr.getOfferId()); %>
+                        <td width="25%"   align="center">
+                            <label class="radio"><%out.print(curr.getOfferId()); %>
+                                <input type="radio" checked="checked" name="clientIdName" value="<%out.print(curr.getOfferId());%>">
+                                <span class="checkround"></span>
                             </label>
                         </td> 
-                        <td width="25%"  align="center">
-                            <label><%out.print(curr.getName()); %>
+                        <td width="25%"   align="center">
+                            <label class="radio"><%out.print(curr.getName()); %>
+                                <span class="checkround"></span>
                             </label>
                         </td>
-                        <td width="30%"  align="center">
-                            <label><%out.print(curr.getDescription()); %>
+                        <td width="30%"   align="center">
+                            <label class="radio"><%out.print(curr.getDescription()); %>
+                                <span class="checkround"></span>
                             </label>
                         </td>
-                        <td width="25%"  align="center">
-                            <label><%out.print(curr.getPrice()); %>
+                        <td width="25%"   align="center">
+                            <label class="radio"><%out.print(curr.getPrice()); %>
+                                <span class="checkround"></span>
                             </label>
                         </td> 
                     </tr> 
@@ -69,8 +70,8 @@
                 </tbody>
             </table>
             
-            <button type="button" class="btn btn-danger" onclick="window.location.href='http://localhost:8080/DemoEshop/home.jsp'">OK</button>
-            <button type="submit" class="btn btn-success">Cancel the selected Offer</button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='http://localhost:8080/DemoEshop/home.jsp'">Home</button>
+            <button type="submit" class="btn btn-success">Cancel Offer</button>
 			</form>
 		</div>
     </div> 

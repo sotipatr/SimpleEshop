@@ -1,6 +1,6 @@
 package my.demo.eshop;
 
-import org.joda.time.DateTime;
+import java.sql.Timestamp;
 
 public class Offer {
 	
@@ -8,10 +8,10 @@ public class Offer {
 	private String name;
 	private String description;
 	private String price;
-	private DateTime expirationDate;
+	private Timestamp expirationDate;
 	private String status;
 	
-	public Offer(int offerId, String name, String description, String price, DateTime expirationDate, String status) {
+	public Offer(int offerId, String name, String description, String price, Timestamp expirationDate, String status) {
 		super();
 		this.name = name;
 		this.offerId = offerId;
@@ -61,11 +61,11 @@ public class Offer {
 		this.price = price;
 	}
 
-	public DateTime getExpirationDate() {
+	public Timestamp getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(DateTime expirationDate) {
+	public void setExpirationDate(Timestamp expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	

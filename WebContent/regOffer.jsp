@@ -5,14 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/font-awesome.min.css"/>
-<link rel="stylesheet" href="css/regClient.css">
-<link rel="stylesheet" href="css/googleapis.css"/>
-
-<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-
 <title>Offer Details</title>
 </head>
 <body>
@@ -52,7 +44,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="textinput">Time of offer validity(in hours)</label>
+                <label class="col-sm-2 control-label" for="textinput">Time of offer validity(in minutes)</label>
                 <div class="col-sm-4">
                   <input type="text" placeholder="Time" class="form-control" name="time">
                 </div>
@@ -61,7 +53,7 @@
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <div class="pull-right">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <button type="button" class="btn btn-default"  onclick="window.location.href='http://localhost:8080/DemoEshop/home.jsp'">Cancel</button>
                     <button type="submit" class="btn btn-success">Save</button>
                   </div>
                 </div>

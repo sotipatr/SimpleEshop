@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -56,9 +58,18 @@ public class ViewOffers extends HttpServlet {
 				conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306/demoeshop","root","sotiria");
 				DatabaseManager dbManager = new DatabaseManager();
 				ArrayList<Offer> offers = dbManager.getOffers(conn);
-			
+				Iterator<Offer> offerIterator = offers.iterator();
+				Timestamp nowtimestamp = new Timestamp(System.currentTimeMillis());
+            	while (offerIterator.hasNext()) {
+            		Offer curr = offerIterator.next();
+            		if (nowtimestamp.after(curr.getExpirationDate())){
+            			dbManager.cancelOfferById(conn, curr.getOfferId());
+            		}
+            	}
+            	offers = dbManager.getOffers(conn);
 				request.setAttribute("offersList", offers);
-				//redirect to the order page
+				
+				//redirect to the print page
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/printOffers.jsp");
 				requestDispatcher.forward(request, response);
 			
