@@ -22,20 +22,18 @@ public class DatabaseManager {
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		try {
-			String query = "SELECT * FROM demoeshop.OFFERS";
+			String query = "SELECT * FROM demoeshop.OFFERS WHERE status='active'";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S");
 			
 			while(rs.next()){
 				int offerId = rs.getInt("offerid");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
 				String price = rs.getString("price");
-				String expirationDate = rs.getString("expirationDate");
+				Timestamp expirationDate = rs.getTimestamp("expirationDate");
 				
-				DateTime dt = formatter.parseDateTime(expirationDate);
-				Offer offer = new Offer(offerId, name, description, price, dt, "active"); 
+				Offer offer = new Offer(offerId, name, description, price, expirationDate, "active"); 
 				offers.add(offer);
 			}
 
@@ -51,22 +49,73 @@ public class DatabaseManager {
 		}
 	}
 	
-public void setOffer(Connection conn, Offer offer) throws SQLException {
+	public void setOffer(Connection conn, Offer offer) throws SQLException {
+			
+			PreparedStatement ps = null;
+			try {
+				String query = "INSERT INTO OFFERS (name, description, price, expirationDate, status) VALUES (?,?,?,?,?)";
+				ps = conn.prepareStatement(query);
+	
+				ps.setString(1, offer.getName());
+				ps.setString(2, offer.getDescription());
+				ps.setString(3, offer.getPrice());
+				ps.setTimestamp(4, offer.getExpirationDate());
+				ps.setString(5, offer.getStatus());
+	
+				ps.executeUpdate();
+	
+			}finally {
+				try {
+					ps.close();
+				} catch (Exception e) {}
+			}
+		}
+	
+	public void cancelOfferById(Connection conn, int offerid) throws SQLException {
 		
 		PreparedStatement ps = null;
 		try {
-			String query = "INSERT INTO OFFERS (name, description, price, expirationDate, status) VALUES (?,?,?,?,?)";
+			String query = "UPDATE OFFERS\n" + 
+					"SET status='canceled'\n" + 
+					"WHERE offerid=?";
+			
 			ps = conn.prepareStatement(query);
-
-			ps.setString(1, offer.getName());
-			ps.setString(2, offer.getDescription());
-			ps.setString(3, offer.getPrice());
-			ps.setTimestamp(4, new Timestamp(offer.getExpirationDate().getMillis()));
-			ps.setString(5, offer.getStatus());
-
+			ps.setInt(1, offerid);
+			
 			ps.executeUpdate();
 
 		}finally {
+			try {
+				ps.close();
+			} catch (Exception e) {}
+		}
+	}
+		
+	public Offer getOfferById(Connection conn, int offerid) throws SQLException {
+		
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		try {
+			String query = "SELECT * FROM demoeshop.OFFERS WHERE offerid=?";
+			
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, offerid);
+			rs = ps.executeQuery();
+				
+			String name = rs.getString("name");
+			String description = rs.getString("description");
+			String price = rs.getString("price");
+			String status = rs.getString("status");
+			Timestamp expirationDate = rs.getTimestamp("expirationDate");
+			
+			Offer offer = new Offer(offerid, name, description, price, expirationDate, status); 
+			
+			return offer;
+			
+		}finally {
+			try {
+				rs.close();
+			} catch (Exception e) {}
 			try {
 				ps.close();
 			} catch (Exception e) {}
